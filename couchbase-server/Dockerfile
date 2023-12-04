@@ -26,6 +26,11 @@ LABEL maintainer="build-team@couchbase.com"
 # so no need for a "security-only" update.
 RUN microdnf update && microdnf clean all
 
+# Re-install tzdata
+# tzdata shows installed, but /usr/share/zoneinfo doesn't exist.
+# Hence, reinstall it.
+RUN microdnf -y reinstall tzdata && microdnf clean all
+
 # Install yum dependencies
 RUN microdnf -y install \
         findutils \
