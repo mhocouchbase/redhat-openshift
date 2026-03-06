@@ -2,7 +2,7 @@
 
 # Stage 0: compile runit. We use the "python" base as it includes
 # most C-language build tools as well.
-FROM registry.access.redhat.com/ubi8/python-36 as runit_build
+FROM registry.access.redhat.com/ubi9/python-39 as runit_build
 
 USER root
 RUN dnf install -y glibc-static && dnf clean all
@@ -15,13 +15,13 @@ RUN ./package/compile
 
 # Stage 1: build Couchbase Server image.
 
-FROM registry.access.redhat.com/ubi8/ubi-minimal
+FROM registry.access.redhat.com/ubi9/ubi-minimal
 
 LABEL maintainer="build-team@couchbase.com"
 
 # ubi-minimal updates frequently and has very few packages installed,
 # so no need for a "security-only" update.
-RUN microdnf update && microdnf clean all
+RUN microdnf -y update && microdnf clean all
 
 # Install yum dependencies. Reinstall tzdata to ensure /usr/share/zoneinfo
 # exists (https://bugzilla.redhat.com/show_bug.cgi?id=1668185).
