@@ -1,5 +1,5 @@
 # Dockerfile to build the OpenShift image for sync-gateway
-FROM registry.access.redhat.com/ubi8/ubi-minimal
+FROM registry.access.redhat.com/ubi9/ubi-minimal
 
 LABEL maintainer="build-team@couchbase.com"
 
